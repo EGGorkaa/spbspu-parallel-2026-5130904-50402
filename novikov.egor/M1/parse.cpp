@@ -8,15 +8,18 @@
 
 std::size_t novikov::stringToSizeT(const char *str)
 {
-  if (!str) {
+  if (!str)
+  {
     throw std::invalid_argument("Null pointer");
   }
 
-  while (std::isspace(static_cast< unsigned char >(*str))) {
+  while (std::isspace(static_cast< unsigned char >(*str)))
+  {
     ++str;
   }
 
-  if (*str == '-') {
+  if (*str == '-')
+  {
     throw std::invalid_argument("Negative number");
   }
 
@@ -24,19 +27,23 @@ std::size_t novikov::stringToSizeT(const char *str)
   errno = 0;
   const unsigned long long res = std::strtoull(str, &end, 10);
 
-  if (end == str) {
+  if (end == str) 
+  {
     throw std::invalid_argument("Not a number");
   }
 
-  while (std::isspace(static_cast< unsigned char >(*end))) {
+  while (std::isspace(static_cast< unsigned char >(*end))) 
+  {
     ++end;
   }
 
-  if (*end != '\0') {
+  if (*end != '\0')
+  {
     throw std::invalid_argument("Not a number");
   }
 
-  if (errno == ERANGE || res > std::numeric_limits< std::size_t >::max()) {
+  if (errno == ERANGE || res > std::numeric_limits< std::size_t >::max())
+  {
     throw std::invalid_argument("Overflow");
   }
 

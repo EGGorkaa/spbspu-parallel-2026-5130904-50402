@@ -1,7 +1,6 @@
 #include "operations.hpp"
 
 #include "circle.hpp"
-
 #include <algorithm>
 #include <cstddef>
 #include <functional>
@@ -18,15 +17,39 @@ novikov::MinMaxes::MinMaxes():
   max_y_(std::numeric_limits< double >::lowest())
 {}
 
-double novikov::MinMaxes::getMinX() const { return min_x_; }
-double novikov::MinMaxes::getMinY() const { return min_y_; }
-double novikov::MinMaxes::getMaxX() const { return max_x_; }
-double novikov::MinMaxes::getMaxY() const { return max_y_; }
+double novikov::MinMaxes::getMinX() const 
+{
+  return min_x_;
+}
+double novikov::MinMaxes::getMinY() const
+{
+  return min_y_;
+}
+double novikov::MinMaxes::getMaxX() const 
+{
+  return max_x_;
+}
+double novikov::MinMaxes::getMaxY() const
+{
+  return max_y_;
+}
 
-void novikov::MinMaxes::setMinX(double v) { min_x_ = v; }
-void novikov::MinMaxes::setMinY(double v) { min_y_ = v; }
-void novikov::MinMaxes::setMaxX(double v) { max_x_ = v; }
-void novikov::MinMaxes::setMaxY(double v) { max_y_ = v; }
+void novikov::MinMaxes::setMinX(double v)
+{
+  min_x_ = v;
+}
+void novikov::MinMaxes::setMinY(double v)
+{
+  min_y_ = v;
+}
+void novikov::MinMaxes::setMaxX(double v)
+{
+  max_x_ = v;
+}
+void novikov::MinMaxes::setMaxY(double v)
+{
+  max_y_ = v;
+}
 
 std::size_t novikov::countInside(const std::vector< Circle >& circles, double x, double y)
 {
@@ -64,10 +87,7 @@ novikov::MinMaxes novikov::getMinMaxes(const std::vector< Circle >& circles)
 }
 
 std::pair< std::size_t, std::size_t > novikov::calc(
-    const std::vector< Circle >& circles,
-    std::size_t tries,
-    std::size_t seed,
-    const MinMaxes& min_maxes)
+    const std::vector< Circle >& circles, std::size_t tries, std::size_t seed, const MinMaxes& min_maxes)
 {
   std::default_random_engine engine(seed);
   std::uniform_real_distribution< double > dist_x(min_maxes.getMinX(), min_maxes.getMaxX());
@@ -97,10 +117,7 @@ std::pair< std::size_t, std::size_t > novikov::calc(
 }
 
 std::pair< double, double > novikov::area(
-    const std::vector< Circle >& circles,
-    std::size_t threads,
-    std::size_t tries,
-    std::size_t seed)
+    const std::vector< Circle >& circles, std::size_t threads, std::size_t tries, std::size_t seed)
 {
   if (threads > tries)
   {
@@ -118,13 +135,7 @@ std::pair< double, double > novikov::area(
   for (std::size_t i = 0; i < threads; ++i)
   {
     const std::size_t curr_tries = base + ((i < remainder) ? 1 : 0);
-    results.push_back(std::async(
-        std::launch::async,
-        novikov::calc,
-        std::cref(circles),
-        curr_tries,
-        seed + i,
-        std::cref(min_maxes)));
+    results.push_back(std::async(std::launch::async, novikov::calc, std::cref(circles), curr_tries, seed + i, std::cref(min_maxes)));
   }
 
   std::size_t count_of_total_coverage = 0;
@@ -137,14 +148,10 @@ std::pair< double, double > novikov::area(
     count_of_intersection += res.second;
   }
 
-  const double box_area =
-      (min_maxes.getMaxX() - min_maxes.getMinX()) *
-      (min_maxes.getMaxY() - min_maxes.getMinY());
+  const double box_area = (min_maxes.getMaxX() - min_maxes.getMinX()) * (min_maxes.getMaxY() - min_maxes.getMinY());
 
-  const double total_coverage =
-      (static_cast< double >(count_of_total_coverage) / static_cast< double >(tries)) * box_area;
-  const double intersection_area =
-      (static_cast< double >(count_of_intersection) / static_cast< double >(tries)) * box_area;
+  const double total_coverage = (static_cast< double >(count_of_total_coverage) / static_cast< double >(tries)) * box_area;
+  const double intersection_area = (static_cast< double >(count_of_intersection) / static_cast< double >(tries)) * box_area;
 
   return {total_coverage, intersection_area};
 }

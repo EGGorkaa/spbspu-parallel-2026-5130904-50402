@@ -1,7 +1,6 @@
 #include "circle.hpp"
 #include "operations.hpp"
 #include "parse.hpp"
-
 #include <cstddef>
 #include <iomanip>
 #include <iostream>
