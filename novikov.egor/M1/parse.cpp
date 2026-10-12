@@ -27,12 +27,12 @@ std::size_t novikov::stringToSizeT(const char *str)
   errno = 0;
   const unsigned long long res = std::strtoull(str, &end, 10);
 
-  if (end == str) 
+  if (end == str)
   {
     throw std::invalid_argument("Not a number");
   }
 
-  while (std::isspace(static_cast< unsigned char >(*end))) 
+  while (std::isspace(static_cast< unsigned char >(*end)))
   {
     ++end;
   }

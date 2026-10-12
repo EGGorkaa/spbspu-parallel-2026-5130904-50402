@@ -17,7 +17,7 @@ novikov::MinMaxes::MinMaxes():
   max_y_(std::numeric_limits< double >::lowest())
 {}
 
-double novikov::MinMaxes::getMinX() const 
+double novikov::MinMaxes::getMinX() const
 {
   return min_x_;
 }
@@ -25,7 +25,7 @@ double novikov::MinMaxes::getMinY() const
 {
   return min_y_;
 }
-double novikov::MinMaxes::getMaxX() const 
+double novikov::MinMaxes::getMaxX() const
 {
   return max_x_;
 }
