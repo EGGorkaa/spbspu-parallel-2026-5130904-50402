@@ -135,7 +135,8 @@ std::pair< double, double > novikov::area(
   for (std::size_t i = 0; i < threads; ++i)
   {
     const std::size_t curr_tries = base + ((i < remainder) ? 1 : 0);
-    results.push_back(std::async(std::launch::async, novikov::calc, std::cref(circles), curr_tries, seed + i, std::cref(min_maxes)));
+    results.push_back(
+        std::async(std::launch::async, novikov::calc, std::cref(circles), curr_tries, seed + i, std::cref(min_maxes)));
   }
 
   std::size_t count_of_total_coverage = 0;
@@ -150,8 +151,10 @@ std::pair< double, double > novikov::area(
 
   const double box_area = (min_maxes.getMaxX() - min_maxes.getMinX()) * (min_maxes.getMaxY() - min_maxes.getMinY());
 
-  const double total_coverage = (static_cast< double >(count_of_total_coverage) / static_cast< double >(tries)) * box_area;
-  const double intersection_area = (static_cast< double >(count_of_intersection) / static_cast< double >(tries)) * box_area;
+  const double total_coverage
+      = (static_cast< double >(count_of_total_coverage) / static_cast< double >(tries)) * box_area;
+  const double intersection_area
+      = (static_cast< double >(count_of_intersection) / static_cast< double >(tries)) * box_area;
 
   return {total_coverage, intersection_area};
 }

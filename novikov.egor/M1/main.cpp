@@ -60,10 +60,7 @@ int main(int argc, char* argv[])
       std::cerr << "Radius must be positive\n";
       return 2;
     }
-    circles.push_back(novikov::Circle(
-        static_cast< double >(r),
-        static_cast< double >(x),
-        static_cast< double >(y)));
+    circles.push_back(novikov::Circle(static_cast< double >(r), static_cast< double >(x), static_cast< double >(y)));
   }
 
   if (!std::cin.eof())
@@ -80,8 +77,7 @@ int main(int argc, char* argv[])
 
   const std::pair< double, double > res = novikov::area(circles, threads, tries, seed);
 
-  std::cout << std::setprecision(std::numeric_limits< double >::max_digits10)
-            << res.first << ' ' << res.second << '\n';
+  std::cout << std::setprecision(std::numeric_limits< double >::max_digits10) << res.first << ' ' << res.second << '\n';
 
   return 0;
 }
