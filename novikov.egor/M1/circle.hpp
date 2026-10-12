@@ -12,7 +12,7 @@ namespace novikov
     double getY() const;
 
   private:
-    double r, x, y;
+    double r_, x_, y_;
   };
 }
 
