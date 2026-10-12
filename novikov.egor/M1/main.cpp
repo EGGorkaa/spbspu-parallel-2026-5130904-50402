@@ -36,8 +36,7 @@ int main(int argc, char *argv[])
   }
 
   if (threads == 0) {
-    std::cerr << "Threads can't be zero\n";
-    return 1;
+    threads = 1;
   }
 
   std::vector< novikov::Circle > circles;
