@@ -30,9 +30,15 @@ namespace novikov
 
   MinMaxes getMinMaxes(const std::vector< Circle >& circles);
 
-  std::pair< std::size_t, std::size_t > calc(const std::vector< Circle >& circles, std::size_t tries, std::size_t seed, const MinMaxes& min_maxes);
+  std::pair< std::size_t, std::size_t > calc(const std::vector< Circle >& circles,
+                                             std::size_t tries,
+                                             std::size_t seed,
+                                             const MinMaxes& min_maxes);
 
-  std::pair< double, double > area(const std::vector< Circle >& circles, std::size_t threads, std::size_t tries, std::size_t seed);
+  std::pair< double, double > area(const std::vector< Circle >& circles,
+                                   std::size_t threads,
+                                   std::size_t tries,
+                                   std::size_t seed);
 }
 
 #endif
